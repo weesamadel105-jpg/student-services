@@ -3,42 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <title>خدمات الطلاب</title>
+
 <style>
 body{
 font-family: Arial;
 background:#f2f2f2;
 text-align:center;
+direction:rtl;
 }
+
 header{
 background:#2c7be5;
 color:white;
 padding:20px;
-font-size:24px;
+font-size:26px;
 }
+
 .container{
 margin:40px;
 }
-input,select,textarea{
-width:80%;
-padding:10px;
-margin:10px;
-}
-button{
-background:#2c7be5;
-color:white;
-padding:12px 25px;
-border:none;
-font-size:18px;
-cursor:pointer;
-}
-.card{
+
+.box{
 background:white;
 padding:20px;
 border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-width:80%;
+width:90%;
+max-width:500px;
 margin:auto;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
+
+input,select,textarea{
+width:90%;
+padding:10px;
+margin:10px;
+}
+
+button{
+background:#2c7be5;
+color:white;
+padding:12px;
+border:none;
+width:50%;
+font-size:16px;
+border-radius:6px;
+}
+
+#msg{
+margin-top:20px;
+color:green;
+font-size:18px;
+}
+
 </style>
 </head>
 
@@ -50,8 +66,9 @@ margin:auto;
 
 <div class="container">
 
-<div class="card">
-<h2>إرسال واجب</h2>
+<div class="box">
+
+<h2>إرسال الواجب</h2>
 
 <input type="text" placeholder="اسمك"><br>
 
@@ -63,7 +80,9 @@ margin:auto;
 <option>مستعجل</option>
 </select><br>
 
-<textarea placeholder="اكتب الواجب هنا" rows="6"></textarea><br>
+<textarea placeholder="اكتب تفاصيل الواجب"></textarea><br>
+
+<input type="file"><br>
 
 <button onclick="send()">إرسال الواجب</button>
 
@@ -74,9 +93,11 @@ margin:auto;
 </div>
 
 <script>
+
 function send(){
-document.getElementById("msg").innerHTML="تم إرسال الواجب بنجاح وسيتم مراجعته من المعلمين";
+document.getElementById("msg").innerHTML="تم إرسال الواجب ✔ سيتم مراجعته من المعلمين";
 }
+
 </script>
 
 </body>
