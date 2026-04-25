@@ -1,103 +1,205 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>خدمات الطلاب</title>
 
 <style>
-body{
-font-family: Arial;
-background:#f2f2f2;
-text-align:center;
-direction:rtl;
+:root {
+  --primary: #2c7be5;
+  --primary-dark: #1d5fb8;
+  --bg: #f2f2f2;
+  --text: #1f2937;
+  --success-bg: #e8f8ef;
+  --success-text: #1f7a44;
+  --error-bg: #fde8e8;
+  --error-text: #b42318;
 }
 
-header{
-background:#2c7be5;
-color:white;
-padding:20px;
-font-size:26px;
+* {
+  box-sizing: border-box;
 }
 
-.container{
-margin:40px;
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  text-align: center;
+  direction: rtl;
+  color: var(--text);
+  margin: 0;
 }
 
-.box{
-background:white;
-padding:20px;
-border-radius:10px;
-width:90%;
-max-width:500px;
-margin:auto;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+header {
+  background: var(--primary);
+  color: white;
+  padding: 20px;
+  font-size: 26px;
 }
 
-input,select,textarea{
-width:90%;
-padding:10px;
-margin:10px;
+.container {
+  margin: 40px 16px;
 }
 
-button{
-background:#2c7be5;
-color:white;
-padding:12px;
-border:none;
-width:50%;
-font-size:16px;
-border-radius:6px;
+.box {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 540px;
+  margin: auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
-#msg{
-margin-top:20px;
-color:green;
-font-size:18px;
+h2 {
+  margin-top: 0;
 }
 
+.field {
+  text-align: right;
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  margin: 0;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid rgba(44, 123, 229, 0.25);
+  border-color: var(--primary);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  background: var(--primary);
+  color: white;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--primary-dark);
+}
+
+#msg {
+  margin-top: 16px;
+  font-size: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+}
+
+#msg.success {
+  display: block;
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+#msg.error {
+  display: block;
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+small {
+  color: #6b7280;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-موقع خدمات الطلاب
+  منصة خدمات الطلاب
 </header>
 
 <div class="container">
+  <div class="box">
+    <h2>إرسال الواجب</h2>
 
-<div class="box">
+    <form id="assignmentForm">
+      <div class="field">
+        <label for="studentName">اسمك</label>
+        <input id="studentName" type="text" placeholder="اكتب اسمك" required>
+      </div>
 
-<h2>إرسال الواجب</h2>
+      <div class="field">
+        <label for="universityName">اسم الجامعة</label>
+        <input id="universityName" type="text" placeholder="اكتب اسم الجامعة" required>
+      </div>
 
-<input type="text" placeholder="اسمك"><br>
+      <div class="field">
+        <label for="speed">سرعة التنفيذ</label>
+        <select id="speed" required>
+          <option value="">اختر السرعة</option>
+          <option>عادي</option>
+          <option>مستعجل</option>
+        </select>
+      </div>
 
-<input type="text" placeholder="اسم الجامعة"><br>
+      <div class="field">
+        <label for="details">تفاصيل الواجب</label>
+        <textarea id="details" placeholder="اكتب تفاصيل الواجب" required></textarea>
+      </div>
 
-<select>
-<option>اختر السرعة</option>
-<option>عادي</option>
-<option>مستعجل</option>
-</select><br>
+      <div class="field">
+        <label for="fileUpload">رفع ملف الواجب (اختياري)</label>
+        <input id="fileUpload" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
+        <small>الصيغ المسموحة: PDF, DOC, DOCX, PNG, JPG</small>
+      </div>
 
-<textarea placeholder="اكتب تفاصيل الواجب"></textarea><br>
+      <button type="submit">إرسال الواجب</button>
+    </form>
 
-<input type="file"><br>
-
-<button onclick="send()">إرسال الواجب</button>
-
-<p id="msg"></p>
-
-</div>
-
+    <p id="msg" role="status" aria-live="polite"></p>
+  </div>
 </div>
 
 <script>
+const form = document.getElementById("assignmentForm");
+const msg = document.getElementById("msg");
 
-function send(){
-document.getElementById("msg").innerHTML="تم إرسال الواجب ✔ سيتم مراجعته من المعلمين";
-}
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
 
+  const studentName = document.getElementById("studentName").value.trim();
+  const universityName = document.getElementById("universityName").value.trim();
+  const speed = document.getElementById("speed").value;
+  const details = document.getElementById("details").value.trim();
+
+  if (!studentName || !universityName || !speed || !details) {
+    msg.className = "error";
+    msg.textContent = "يرجى تعبئة جميع الحقول المطلوبة قبل الإرسال.";
+    return;
+  }
+
+  msg.className = "success";
+  msg.textContent = `تم إرسال الواجب بنجاح يا ${studentName} ✔ سيتم مراجعته من المعلمين.`;
+  form.reset();
+});
 </script>
 
 </body>
